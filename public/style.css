@@ -1,0 +1,137 @@
+body {
+  font-family: "Arial", sans-serif;
+  background-color: #f4f4f4;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  text-align: center;
+}
+
+h2,
+h3 {
+  color: #333;
+  margin-bottom: 20px;
+}
+
+input,
+button,
+textarea {
+  font-size: 16px;
+  padding: 10px;
+  margin: 10px 0;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  width: 85%;
+}
+
+button {
+  background-color: #4caf50;
+  color: white;
+  cursor: pointer;
+  border: none;
+}
+
+button:hover {
+  background-color: #45a049;
+}
+
+a {
+  color: #4caf50;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+.container {
+  min-width: 300px;
+  max-width: 600px;
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.menu {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 15px;
+  margin-top: 30px;
+}
+
+.menu a {
+  background-color: #f1f1f1;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  font-weight: bold;
+  color: #333;
+  transition: background-color 0.3s;
+  text-decoration: none;
+}
+
+.menu a:hover {
+  background-color: #e1e1e1;
+}
+
+.comment-list {
+  list-style: none;
+  padding: 0;
+  margin: 20px 0;
+}
+
+.comment-list li {
+  background-color: #f9f9f9;
+  padding: 10px;
+  margin: 5px 0;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.user-info {
+  margin-top: 20px;
+  font-weight: bold;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 20px 0;
+  border-radius: 5px;
+}
+
+th,
+td {
+  border: 1px solid #aaa;
+  padding: 8px;
+  text-align: left;
+}
+
+th {
+  background-color: #f2f2f2;
+}
+
+.message {
+  padding: 10px;
+  margin-bottom: 15px;
+  background-color: #f0f0f0;
+  border-left: 5px solid #007bff;
+}
+
+.form-toggle {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+.form-section {
+  display: none;
+}
+.form-section.active {
+  display: block;
+}
