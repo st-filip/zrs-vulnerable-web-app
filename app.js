@@ -142,6 +142,7 @@ app.get("/dashboard", (req, res) => {
         <a href="/search-form">🔍 Pretraga po imenu (SQLi)</a>
         <a href="/comments-form">💬 Komentari (XSS)</a>
         <a href="/change-password-form">🔐 Promena lozinke (CSRF)</a>
+        <a href="/ping-form">📡 Ping IP adrese (RCE)</a>
         <a href="/logout">🚪 Logout</a>
       </div>
     </div>
@@ -334,6 +335,57 @@ app.post("/change-password", (req, res) => {
       "/change-password-form?msg=" +
         encodeURIComponent("Lozinka je uspešno promenjena.")
     );
+  });
+});
+
+const { exec } = require("child_process");
+
+// Forma za unos IP adrese (ping)
+app.get("/ping-form", (req, res) => {
+  if (!req.session.user) {
+    return res.redirect("/");
+  }
+  res.send(`
+    <head>
+      <link rel="stylesheet" type="text/css" href="/style.css">
+    </head>
+    <div class="container">
+      <h3>Ping IP adrese</h3>
+      <form method="POST" action="/ping">
+        <input name="ip" placeholder="Unesite IP adresu" required/><br/>
+        <button type="submit">Pinguj</button>
+      </form>
+      <a href="/dashboard">Nazad</a>
+    </div>
+  `);
+});
+
+// Ruta za izvršavanje ping komande
+app.post("/ping", (req, res) => {
+  const ip = req.body.ip;
+  exec(`ping -c 2 ${ip}`, (err, stdout, stderr) => {
+    if (err) {
+      return res.send(`
+        <head>
+          <link rel="stylesheet" type="text/css" href="/style.css">
+        </head>
+        <div class="container">
+          <h3>Greška prilikom pinga:</h3>
+          <pre>${stderr}</pre>
+          <a href="/ping-form">Pokušaj ponovo</a>
+        </div>
+      `);
+    }
+    res.send(`
+      <head>
+        <link rel="stylesheet" type="text/css" href="/style.css">
+      </head>
+      <div class="container">
+        <h3>Rezultati pinga:</h3>
+        <pre>${stdout}</pre>
+        <a href="/ping-form">Pokušaj ponovo</a>
+      </div>
+    `);
   });
 });
 
