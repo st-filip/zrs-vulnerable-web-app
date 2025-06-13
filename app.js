@@ -3,6 +3,8 @@ const mysql = require("mysql");
 const session = require("express-session");
 const bodyParser = require("body-parser");
 const app = express();
+const fs = require("fs"); // za rad sa fajlovima
+const path = require("path"); // za konstrukciju putanje
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
@@ -29,6 +31,21 @@ db.connect((err) => {
 });
 
 let komentari = [];
+
+// Kreiraj log stream i prosledi ga za logovanje
+const accessLogStream = fs.createWriteStream(
+  path.join(__dirname, "access.log"),
+  { flags: "a" } // 'a' znači append (ne briše prethodni sadržaj)
+);
+
+// Logovanje HTTP zahteva u fajl
+app.use((req, res, next) => {
+  const log = `${new Date().toISOString()} - ${req.method} ${
+    req.originalUrl
+  }\n`;
+  accessLogStream.write(log);
+  next();
+});
 
 // Login / Register forma
 app.get("/", (req, res) => {
@@ -386,6 +403,17 @@ app.post("/ping", (req, res) => {
         <a href="/ping-form">Pokušaj ponovo</a>
       </div>
     `);
+  });
+});
+
+app.get("/view-file", (req, res) => {
+  const filePath = req.query.file;
+
+  fs.readFile(filePath, "utf8", (err, data) => {
+    if (err) {
+      return res.status(500).send("Greška pri čitanju fajla");
+    }
+    res.send(data);
   });
 });
 
