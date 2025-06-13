@@ -179,6 +179,7 @@ app.get("/search-form", (req, res) => {
       <link rel="stylesheet" type="text/css" href="/style.css">
     </head>
     <div class="container">
+    <h3>Pretraži po imenu</h3>
       <form method="POST" action="/search">
         <input name="term" placeholder="Pretraga po imenu" required/>
         <button>Traži</button>
@@ -201,6 +202,7 @@ app.post("/search", (req, res) => {
     <div class="container">
       <h3>Greška prilikom pretrage:</h3>
       <div class="message">${err.message}</div>
+      <h3>Pretraži po imenu</h3>
       <form method="POST" action="/search">
         <input name="term" placeholder="Pretraga po imenu" required value="${term}"/>
         <button>Traži</button>
@@ -236,6 +238,7 @@ app.post("/search", (req, res) => {
         <link rel="stylesheet" type="text/css" href="/style.css">
       </head>
       <div class="container">
+      <h3>Pretraži po imenu</h3>
         <form method="POST" action="/search">
           <input name="term" placeholder="Pretraga po imenu" required value="${term}"/>
           <button>Traži</button>
