@@ -191,7 +191,7 @@ app.get("/search-form", (req, res) => {
 
 app.post("/search", (req, res) => {
   const { term } = req.body;
-  const query = `SELECT * FROM users WHERE username LIKE '%${term}%'`;
+  const query = `SELECT id, username, email FROM users WHERE username LIKE '%${term}%'`;
 
   db.query(query, (err, results) => {
     if (err) {
