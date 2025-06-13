@@ -160,6 +160,7 @@ app.get("/dashboard", (req, res) => {
         <a href="/comments-form">💬 Komentari (XSS)</a>
         <a href="/change-password-form">🔐 Promena lozinke (CSRF)</a>
         <a href="/ping-form">📡 Ping IP adrese (RCE)</a>
+        <a href="/view-file">📂 Pristup lokalnim fajlovima (LFI)</a>
         <a href="/logout">🚪 Logout</a>
       </div>
     </div>
@@ -407,14 +408,44 @@ app.post("/ping", (req, res) => {
 });
 
 app.get("/view-file", (req, res) => {
-  const filePath = req.query.file;
+  const fileParam = req.query.file;
+  let fileContent = "";
 
-  fs.readFile(filePath, "utf8", (err, data) => {
-    if (err) {
-      return res.status(500).send("Greška pri čitanju fajla");
+  if (fileParam) {
+    try {
+      const resolvedPath = path.resolve(fileParam);
+      fileContent = fs.readFileSync(resolvedPath, "utf8");
+    } catch (err) {
+      fileContent = "Greška pri čitanju fajla: " + err.message;
     }
-    res.send(data);
-  });
+  }
+
+  res.send(`
+    <head>
+      <link rel="stylesheet" type="text/css" href="/style.css">
+    </head>
+    <div class="container">
+      <h3>Local File Inclusion (LFI) demonstracija</h3>
+      <p>Ova stranica omogućava da uneseš lokalnu putanju fajla koji će biti pročitan sa servera.</p>
+      <form method="GET" action="/view-file">
+        <input name="file" placeholder="Primer: ./access.log" value="${
+          fileParam || ""
+        }" required />
+        <button type="submit">Učitaj fajl</button>
+      </form>
+
+      ${
+        fileParam
+          ? `
+            <h4>Sadržaj fajla: <code>${fileParam}</code></h4>
+            <div class="scroll-box">${fileContent}</div>
+          `
+          : ""
+      }
+
+      <a href="/dashboard">Nazad</a>
+    </div>
+  `);
 });
 
 app.listen(3000, () => console.log("Server pokrenut na http://localhost:3000"));

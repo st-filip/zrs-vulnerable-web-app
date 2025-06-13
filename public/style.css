@@ -135,3 +135,13 @@ th {
 .form-section.active {
   display: block;
 }
+
+.scroll-box {
+  max-height: 400px;
+  overflow-y: auto;
+  background: #eee;
+  padding: 1em;
+  white-space: pre-wrap;
+  font-family: monospace;
+  border: 1px solid #ccc;
+}
