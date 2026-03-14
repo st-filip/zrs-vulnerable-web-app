@@ -9,7 +9,7 @@ services:
     ports:
       - "3306:3306"
     volumes:
-      - ./init.sql:/docker-entrypoint-initdb.d/init.sql:Z
+      - ./docker/init.sql:/docker-entrypoint-initdb.d/init.sql:Z
     healthcheck:
       test:
         ["CMD", "mysql", "-u", "root", "-proot", "--execute", "SHOW DATABASES;"]

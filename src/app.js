@@ -22,7 +22,7 @@ app.get("/", (req, res) => {
 });
 
 // Logovanje
-const logger = require("./logger");
+const logger = require("./utils/logger");
 app.use(logger);
 
 // Rute
