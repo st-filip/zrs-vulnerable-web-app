@@ -24,8 +24,51 @@ Pokretanjem Docker Desktop aplikacije na Windows i mac OS
 sudo systemctl start docker
 ```
 
-## 3. Pokrenite aplikaciju
+Opcionalno možete dodati svog korisnika u `docker` grupu kako biste mogli koristiti docker naredbe bez `sudo`:
+
+```shell
+sudo usermod -aG docker $USER
+```
+
+Zatim se odjavite i ponovo prijavite na sistem ili pokrenite:
+
+```shell
+newgrp docker
+```
+
+Ako ovaj korak preskočite, sve docker komande morate pokretati sa `sudo`.
+
+
+## 4. Pokretanje aplikacije
+
+U root direktorijumu projekta pokrenite:
 
 ```shell
 docker compose up --build
 ```
+
+Opcija `--build` je potrebna prilikom prvog pokretanja projekta ili nakon izmene `Dockerfile` ili zavisnosti aplikacije (`package.json`).
+
+U ostalim slučajevima aplikaciju možete pokrenuti komandom:
+
+```shell
+docker compose up
+```
+
+## 5. Zaustavljanje aplikacije
+
+Za zaustavljanje pokrenutih kontejnera pokrenite:
+
+```shell
+docker compose down
+```
+
+Ova komanda zaustavlja i uklanja pokrenute kontejnere, ali **zadržava Docker volumes i podatke u bazi**.
+
+Ako želite da obrišete i podatke u bazi (npr. radi ponovne inicijalizacije iz `init.sql`), koristite:
+
+```shell
+docker compose down -v
+```
+
+Ova komanda uklanja i Docker volumes, pa će se baza ponovo inicijalizovati prilikom sledećeg pokretanja aplikacije.
