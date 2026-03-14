@@ -38,7 +38,6 @@ newgrp docker
 
 Ako ovaj korak preskočite, sve docker komande morate pokretati sa `sudo`.
 
-
 ## 4. Pokretanje aplikacije
 
 U root direktorijumu projekta pokrenite:
@@ -72,7 +71,7 @@ http://localhost:3000
 phpMyAdmin interfejs za administraciju baze dostupan je na:
 
 ```
-http://localhost:8080
+http://localhost:8081
 ```
 
 Kredencijali za phpMyAdmin:

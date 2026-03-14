@@ -24,7 +24,7 @@ router.get("/view-file", (req, res) => {
       <h3>Local File Inclusion (LFI) demonstracija</h3>
       <p>Ova stranica omogućava da uneseš putanju lokalnog fajla koji će biti pročitan sa servera.</p>
       <form method="GET" action="/view-file">
-        <input name="file" placeholder="Primer: ./logs/access.log" value="$
+        <input name="file" placeholder="Primer: ./logs/access.log" value="${
           fileParam || ""
         }" required />
         <button type="submit">Učitaj fajl</button>
