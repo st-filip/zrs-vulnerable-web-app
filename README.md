@@ -55,7 +55,40 @@ U ostalim slučajevima aplikaciju možete pokrenuti komandom:
 docker compose up
 ```
 
-## 5. Zaustavljanje aplikacije
+## 5. Pristup aplikaciji
+
+Nakon pokretanja Docker kontejnera, aplikacija će biti dostupna na sledećim adresama:
+
+### 5.1. Web aplikacija
+
+Web aplikacija je dostupna na:
+
+```
+http://localhost:3000
+```
+
+### 5.2. phpMyAdmin
+
+phpMyAdmin interfejs za administraciju baze dostupan je na:
+
+```
+http://localhost:8080
+```
+
+Kredencijali za phpMyAdmin:
+
+```
+Username: root
+Password: root
+```
+
+Baza koju koristi aplikacija je:
+
+```
+zrsdb
+```
+
+## 6. Zaustavljanje aplikacije
 
 Za zaustavljanje pokrenutih kontejnera pokrenite:
 
