@@ -9,6 +9,7 @@ services:
     ports:
       - "3306:3306"
     volumes:
+      - mysql_data:/var/lib/mysql
       - ./docker/init.sql:/docker-entrypoint-initdb.d/init.sql:Z
     healthcheck:
       test:
@@ -44,3 +45,6 @@ services:
     depends_on:
       db:
         condition: service_healthy
+
+volumes:
+  mysql_data:
